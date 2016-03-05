@@ -16,7 +16,6 @@ with open('kaggle_visible_evaluation_triplets.txt', 'r') as f:
 
         line[1] = str(songs_list.index(line[1]))
         line[0] = str(i)
-        matrix_file.write(", ".join(line) + '\n')
-        matrix_file.flush()
+        matrix_file.write(", ".join(line))
 
 matrix_file.close()
