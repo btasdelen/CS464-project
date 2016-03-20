@@ -1,5 +1,5 @@
 function songs = get_song_vector(training_triplet, user_id)
-    song_no = length(unique(training_triplet(:,2)));
+    song_no = max(training_triplet(:,2));
     songs = zeros(song_no,1);
     
     users_vector = training_triplet(training_triplet(:,1)==user_id,:);
