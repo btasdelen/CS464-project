@@ -18,7 +18,7 @@ function [l_new,centroids]=k_means(user_id,training_triplet,k)
         for t=1:k
             dist(:,t) = zeros(user_no,1);
             
-            for s=user_id
+            for s=user_id'
                 song_vector = get_song_vector(training_triplet,s);
                 dist(s,t) = norm(song_vector - centroids(t));
             end
