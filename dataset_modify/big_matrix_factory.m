@@ -1,4 +1,4 @@
-training_users = unique(training_data(:, 1));
+training_users = unique(index(1:5000));
 pointer_songs = unique(training_data(:, 2));
 
 user_no = length(training_users);
