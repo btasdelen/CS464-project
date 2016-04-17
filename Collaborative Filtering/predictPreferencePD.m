@@ -5,7 +5,7 @@ function [pred,meanPred]=predictPreferencePD(activeUser, otherUserMat,numValues,
 % activeUser   row vector representing the preferences of the active user
 % otherUserMat sparse matrix whose rows represent the preferences of the
 %              training set users
-% numValues    The number of distinct preference values
+% numValues    The number of distinct perference values
 % sigma        The variance of the Gaussian that models the preference
 % pred(i,j)    the probability of predicting value j for item i.
 %

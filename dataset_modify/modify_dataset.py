@@ -1,8 +1,13 @@
+import os
+import sys
+
+file_path = sys.argv[1]
+
 user = ''
-matrix_file = open('user_song_count_matrix.txt', 'w')
+matrix_file = open(os.path.join(file_path ,'user_song_count_matrix.txt'), 'w')
 songs_list = []
 song = ''
-with open('kaggle_visible_evaluation_triplets.txt', 'r') as f:
+with open(os.path.join(file_path ,'kaggle_visible_evaluation_triplets.txt'), 'r') as f:
     data = f.readlines()
     data = [section.split('\t') for section in data]
 
@@ -14,7 +19,7 @@ with open('kaggle_visible_evaluation_triplets.txt', 'r') as f:
         if line[1] not in songs_list:
             songs_list.append(line[1])
 
-        line[1] = str(songs_list.index(line[1]))
+        line[1] = str(songs_list.index(line[1]) + 1)
         line[0] = str(i)
         matrix_file.write(", ".join(line))
 
