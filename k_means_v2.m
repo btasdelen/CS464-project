@@ -11,7 +11,6 @@ function [labels,centroids] = k_means_v2(big_matrix,k)
     
     dist = zeros(k,user_no);
     while any(l_old ~= l_new)
-        disp('A')
         l_old = l_new;
         
         for t=1:k
@@ -29,7 +28,6 @@ function [labels,centroids] = k_means_v2(big_matrix,k)
             if(size(big_matrix,2) ~= 0)
                 centroids(:,t) = sum(big_matrix,2)./size(big_matrix,2);    
             else
-                disp('000 0 0 0 0 0 0s?f?r ')
             end 
         end
     end
