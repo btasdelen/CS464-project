@@ -6,7 +6,8 @@ user_no = size(user_song_count,1);
 
 accuracy = zeros(1,user_no);
 tic
-for n=1:2
+for n=1:user_no
+    user_song_count = spconvert(data_table);
     given_songs = 1:song_no;
     user_songs = given_songs(user_song_count(n,:)==1);
 
