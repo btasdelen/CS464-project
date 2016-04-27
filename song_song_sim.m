@@ -1,5 +1,5 @@
 % user_song_count_matrix(:,3) = 1;
-user_song_count = spconvert(data_table);
+user_song_count = spconvert(cleaner_data_table);
 
 song_no = size(user_song_count,2);
 user_no = size(user_song_count,1);
@@ -26,7 +26,7 @@ for n=1:user_no
     output = sortrows(rank,-1);
     output = output(:,2);
 
-    accuracy(n) = measure_accuracy(output(1:500),hidden_songs);
+    accuracy(n) = averagePrecisionAtK(hidden_songs,output(1:500),500);
     if(rem(n,10000)==0)
         n
         toc

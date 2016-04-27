@@ -1,3 +1,4 @@
+K=300;
 accuracy = zeros(size(test_user,1),1);
 tic
 for n=1:size(test_user,1)
@@ -13,7 +14,7 @@ for n=1:size(test_user,1)
     given_song_vector(given_songs) = 1;
 
     trial=given_song_vector'*U;
-    dist=C-repmat(trial, 331, 1);
+    dist=C-repmat(trial, K, 1);
     distance=sqrt(sum(dist.^2,2));
     [sorted , index] = sort(distance);
    
@@ -25,7 +26,7 @@ for n=1:size(test_user,1)
     output = sortrows(rank,-1);
     output = output(:,2);
 
-    accuracy(n) = measure_accuracy(output(1:500),hidden_songs);
+    accuracy(n) = averagePrecisionAtK(hidden_songs,output(1:500),500);
     if(rem(n,1000)==0)
         n
         toc
