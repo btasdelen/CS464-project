@@ -11,10 +11,9 @@
 %     
 % end
 
-songs = unique(new_data_table(:,2));
+songs = unique(cleaner_data_table(:,2));
 k = 0;
-cleaner_data_table = new_data_table;
 for user=songs'
     k=k+1;
-    cleaner_data_table(new_data_table(:,2) == user, 2) = k;
+    cleaner_data_table(cleaner_data_table(:,2) == user, 2) = k;
 end
