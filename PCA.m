@@ -1,5 +1,5 @@
-tic
-load('cleaned_dataset.mat');
+%tic
+%load('cleaned_dataset.mat');
 
 data = spconvert(cleaner_data_table);
 
@@ -14,4 +14,5 @@ sigma = (train_user'*train_user)/size(train_user,1);
 %%
 tr=train_user*U;
 %%
-[idx,C] = kmeans(tr,300,'MaxIter',300);
+[idx,C] = kmeans(tr,2
+50,'MaxIter',300);

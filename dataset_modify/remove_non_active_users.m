@@ -6,7 +6,8 @@ function [ active_users ] = remove_non_active_users( dataset, k )
     n = 0;
     active_users = [];
     for user=users'
-        if sum(dataset(dataset(:, 1) == user, 3)) > k
+        row_num = sum(dataset(dataset(:, 1) == user, 3));
+        if  row_num(1) > k
            n = n + 1;
            active_users = [active_users; dataset(dataset(:, 1) == user, :)];
         end

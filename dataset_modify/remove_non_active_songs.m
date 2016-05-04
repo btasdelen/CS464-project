@@ -6,7 +6,8 @@ function [ active_songs ] = remove_non_active_songs( dataset, k )
     n = 0;
     active_songs = [];
     for song=songs'
-        if sum(dataset(dataset(:, 2) == song, 3)) > k
+        row_num = size(dataset(dataset(:, 2) == song));
+        if  row_num(1) > k
            n = n + 1;
            active_songs = [active_songs; dataset(dataset(:, 2) == song, :)];
         end
