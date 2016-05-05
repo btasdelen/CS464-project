@@ -1,6 +1,8 @@
 tic
 load('DATASETS/cleaner_dataset.mat');
 
+k = 600;
+
 data = spconvert(cleaner_data_table);
 
 train_user = data(1:30000,:);
@@ -10,11 +12,18 @@ song_no = size(data,2);
 
 sigma = (train_user'*train_user)/size(train_user,1);
 
-[U,S,V] = svds(sigma, 13);
+[U,S,V] = svds(sigma, 16);
 tr=train_user*U;
-tree = linkage(tr, 'single');
-clusters = cluster(tree, 'maxclust', 200);
+tree = linkage(tr, 'average', 'cosine');
+idx = cluster(tree, 'maxclust', k);
+
+for clt = 1:k
+   C(clt, :) = sum(tr(idx == clt,:), 1)/length(tr(idx == clt));
+end
+
 %%
+accuracy = zeros(size(test_user,1),1);
+tic
 for n=1:size(test_user,1)
     curr_user = test_user(n,:);
     given_songs = 1:song_no;
@@ -28,22 +37,11 @@ for n=1:size(test_user,1)
     given_song_vector(given_songs) = 1;
 
     trial=given_song_vector'*U;
-    dist=C-repmat(trial, 331, 1);
+    dist=C-repmat(trial, k, 1);
     distance=sqrt(sum(dist.^2,2));
     [sorted , index] = sort(distance);
    
-    similarity=sum(train_user(idx==index(1),:),1);
-    similarity(2) = 1:song_no;
-    
-    similarity(given_songs) = [];
-    
-    % Similarity measurement
-
-    
-    
-%     rank = similarity'*user_song_count;
-
-    % Sort most similar songs
+    rank=sum(train_user(idx==index(1),:),1);
     rank(2,:) = 1:song_no;
 
     rank(:,given_songs) = [];
@@ -51,9 +49,9 @@ for n=1:size(test_user,1)
     output = sortrows(rank,-1);
     output = output(:,2);
 
-    accuracy(n) = measure_accuracy(output(1:500),hidden_songs);
-    if(rem(n,10000)==0)
+    accuracy(n) = averagePrecisionAtK(hidden_songs,output(1:500),500);
+    if(rem(n,1000)==0)
         n
-        
+        toc
     end
 end
